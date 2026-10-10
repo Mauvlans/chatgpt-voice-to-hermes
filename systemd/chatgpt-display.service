@@ -1,0 +1,13 @@
+[Unit]
+Description=Private X display for headless ChatGPT Desktop
+Before=chatgpt-remote.service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/rm -f /tmp/.X95-lock
+ExecStart=/usr/bin/Xvfb :95 -screen 0 1440x900x24 -nolisten tcp
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

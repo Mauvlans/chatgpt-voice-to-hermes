@@ -1,0 +1,21 @@
+[Unit]
+Description=ChatGPT Desktop (headless) for Remote/Voice connections
+After=network-online.target chatgpt-display.service
+Wants=network-online.target chatgpt-remote-enable.service
+Requires=chatgpt-display.service
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+Environment=DISPLAY=:95
+Environment=ELECTRON_OZONE_PLATFORM_HINT=x11
+Environment=QT_QPA_PLATFORM=xcb
+ExecStart=/usr/bin/chatgpt --remote-debugging-address=127.0.0.1 --remote-debugging-port=9231 --remote-allow-origins=http://localhost:9231
+Restart=always
+RestartSec=10
+TimeoutStopSec=20
+KillMode=mixed
+
+[Install]
+WantedBy=default.target

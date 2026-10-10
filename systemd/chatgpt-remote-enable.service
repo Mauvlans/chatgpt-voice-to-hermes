@@ -1,0 +1,13 @@
+[Unit]
+Description=Re-enable ChatGPT Remote 'Allow connections' after restart
+After=chatgpt-remote.service
+BindsTo=chatgpt-remote.service
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:95
+ExecStart=__HOME__/.local/bin/chatgpt-remote-enable.py
+RemainAfterExit=no
+
+[Install]
+WantedBy=default.target
